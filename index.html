@@ -466,7 +466,7 @@
         const img = document.getElementById('heroImage');
         if (!img) return;
 
-        const makeTransparent = () => {
+        const makeTransparentAndCrop = () => {
           try {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
@@ -483,30 +483,66 @@
             const imageData = ctx.getImageData(0, 0, w, h);
             const data = imageData.data;
 
+            const threshold = 245;
+            const margin = 12;
+
+            let minX = w;
+            let minY = h;
+            let maxX = 0;
+            let maxY = 0;
+            let hasContent = false;
+
             for (let i = 0; i < data.length; i += 4) {
               const r = data[i];
               const g = data[i + 1];
               const b = data[i + 2];
+              const isBg = r >= threshold && g >= threshold && b >= threshold;
+              if (isBg) data[i + 3] = 0;
 
-              const min = Math.min(r, g, b);
-              const max = Math.max(r, g, b);
-
-              if (min >= 245 && max >= 252) {
-                const alpha = Math.max(0, Math.min(255, Math.round((255 - min) * 18)));
-                data[i + 3] = alpha;
+              if (data[i + 3] > 8) {
+                const px = (i / 4) % w;
+                const py = Math.floor(i / 4 / w);
+                if (px < minX) minX = px;
+                if (py < minY) minY = py;
+                if (px > maxX) maxX = px;
+                if (py > maxY) maxY = py;
+                hasContent = true;
               }
             }
 
             ctx.putImageData(imageData, 0, 0);
-            img.src = canvas.toDataURL('image/png');
+
+            if (!hasContent) {
+              img.src = canvas.toDataURL('image/png');
+              return;
+            }
+
+            minX = Math.max(0, minX - margin);
+            minY = Math.max(0, minY - margin);
+            maxX = Math.min(w - 1, maxX + margin);
+            maxY = Math.min(h - 1, maxY + margin);
+
+            const cw = maxX - minX + 1;
+            const ch = maxY - minY + 1;
+
+            const out = document.createElement('canvas');
+            out.width = cw;
+            out.height = ch;
+            const outCtx = out.getContext('2d');
+            if (!outCtx) {
+              img.src = canvas.toDataURL('image/png');
+              return;
+            }
+            outCtx.drawImage(canvas, minX, minY, cw, ch, 0, 0, cw, ch);
+            img.src = out.toDataURL('image/png');
           } catch (_) {
           }
         };
 
         if (img.complete) {
-          makeTransparent();
+          makeTransparentAndCrop();
         } else {
-          img.addEventListener('load', makeTransparent, { once: true });
+          img.addEventListener('load', makeTransparentAndCrop, { once: true });
         }
       })();
     </script>
