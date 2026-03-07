@@ -308,6 +308,43 @@ h3 {
   padding: 14px;
 }
 
+.worries-split {
+  margin-top: 12px;
+}
+
+.worries-split .panel {
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.worries-split .list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.worries-split .list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.worries-split .list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.9em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(167, 139, 250, 0.9);
+}
+
+.worries-split .copy {
+  font-size: 15px;
+  line-height: 1.9;
+}
+
 .panel {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -500,4 +537,7 @@ h3 {
   .hero-media img { height: 300px; }
   .worries { grid-template-columns: 1fr; }
   .worries-split { grid-template-columns: 1fr; }
+  .worries-split .panel { padding: 16px; }
+  .worries-split .list { font-size: 14px; }
+  .worries-split .copy { font-size: 14px; }
 }
