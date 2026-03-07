@@ -330,6 +330,10 @@ h3 {
   color: var(--muted);
 }
 
+.list-spaced li + li {
+  margin-top: 8px;
+}
+
 .mini-title {
   font-size: 12px;
   font-weight: 800;
@@ -495,4 +499,5 @@ h3 {
   .hero-media { padding: 0; }
   .hero-media img { height: 300px; }
   .worries { grid-template-columns: 1fr; }
+  .worries-split { grid-template-columns: 1fr; }
 }
