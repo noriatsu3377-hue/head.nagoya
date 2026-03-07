@@ -483,7 +483,7 @@
             const imageData = ctx.getImageData(0, 0, w, h);
             const data = imageData.data;
 
-            const threshold = 245;
+            const threshold = 220;
             const margin = 12;
 
             let minX = w;
@@ -496,8 +496,22 @@
               const r = data[i];
               const g = data[i + 1];
               const b = data[i + 2];
-              const isBg = r >= threshold && g >= threshold && b >= threshold;
-              if (isBg) data[i + 3] = 0;
+              const max = Math.max(r, g, b);
+              const min = Math.min(r, g, b);
+              const range = max - min;
+              const bright = (r + g + b) / 3;
+
+              const isAlmostGray = range <= 26;
+              const isBright = bright >= threshold;
+
+              if (isBright && isAlmostGray) {
+                if (bright >= 245) {
+                  data[i + 3] = 0;
+                } else {
+                  const t = (bright - threshold) / (245 - threshold);
+                  data[i + 3] = Math.round(255 * (1 - t) * (1 - t));
+                }
+              }
 
               if (data[i + 3] > 8) {
                 const px = (i / 4) % w;
