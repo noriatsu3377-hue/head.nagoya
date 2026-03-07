@@ -292,28 +292,6 @@ h3 {
   margin-top: 10px;
 }
 
-.media-wide {
-  margin: 12px 0 16px;
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) + 8px);
-  background: rgba(255, 255, 255, 0.03);
-  overflow: hidden;
-}
-
-.media-wide img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.media-wide-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
 .list {
   margin: 0;
   padding-left: 18px;
@@ -484,6 +462,4 @@ h3 {
   .hero { padding: 28px 0 12px; }
   .hero-media { padding: 0; }
   .hero-media img { height: 300px; }
-  .media-wide img { max-height: 190px; object-fit: cover; }
-  .media-wide-actions { justify-content: center; }
 }
