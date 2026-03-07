@@ -59,7 +59,7 @@
           </div>
 
           <div class="hero-media" aria-hidden="true">
-            <img src="./toukeibu.png" alt="頭部・頸部の解剖図" />
+            <img id="heroImage" src="./toukeibu.png" alt="頭部・頸部の解剖図" />
           </div>
         </div>
       </section>
@@ -460,5 +460,55 @@
         <div class="footer-sub">©</div>
       </div>
     </footer>
+
+    <script>
+      (() => {
+        const img = document.getElementById('heroImage');
+        if (!img) return;
+
+        const makeTransparent = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            const w = img.naturalWidth;
+            const h = img.naturalHeight;
+            if (!w || !h) return;
+
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, w, h);
+            const data = imageData.data;
+
+            for (let i = 0; i < data.length; i += 4) {
+              const r = data[i];
+              const g = data[i + 1];
+              const b = data[i + 2];
+
+              const min = Math.min(r, g, b);
+              const max = Math.max(r, g, b);
+
+              if (min >= 245 && max >= 252) {
+                const alpha = Math.max(0, Math.min(255, Math.round((255 - min) * 18)));
+                data[i + 3] = alpha;
+              }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+            img.src = canvas.toDataURL('image/png');
+          } catch (_) {
+          }
+        };
+
+        if (img.complete) {
+          makeTransparent();
+        } else {
+          img.addEventListener('load', makeTransparent, { once: true });
+        }
+      })();
+    </script>
   </body>
 </html>
