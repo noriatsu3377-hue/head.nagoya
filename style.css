@@ -539,8 +539,171 @@ img { max-width: 100%; display: block; }
   transition-delay: 2.15s;
 }
 
-.section {
-  padding: 34px 0;
+.section-neuro {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-neuro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 520px at 65% 40%, rgba(124, 58, 237, 0.11), transparent 60%),
+    radial-gradient(600px 420px at 25% 70%, rgba(59, 130, 246, 0.07), transparent 62%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.neuro-head {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.neuro-map {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.neuro-map-visual {
+  position: sticky;
+  top: 92px;
+}
+
+.map-frame {
+  position: relative;
+  border-radius: calc(var(--radius) + 10px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.map-frame::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(closest-side at 55% 40%, rgba(167, 139, 250, 0.14), transparent 70%);
+  filter: blur(14px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.map-svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 360 / 520;
+}
+
+.map-base,
+.map-spine,
+.map-nerve {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.map-base {
+  stroke-width: 2.6;
+}
+
+.map-node {
+  fill: rgba(255, 255, 255, 0.22);
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1;
+  transform-origin: center;
+  opacity: 0.55;
+}
+
+.map-node.is-active {
+  fill: url(#mapGlow);
+  stroke: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.35));
+}
+
+.map-signal {
+  fill: rgba(167, 139, 250, 0.62);
+  opacity: 0;
+}
+
+.neuro-map.is-anim .map-signal {
+  opacity: 1;
+  animation: mapSignal 2.2s ease-in-out infinite;
+}
+
+@keyframes mapSignal {
+  0% { transform: translate(0, 0); opacity: 0.0; }
+  20% { opacity: 0.65; }
+  50% { transform: translate(54px, -38px); opacity: 0.38; }
+  70% { opacity: 0.18; }
+  100% { transform: translate(84px, -58px); opacity: 0.0; }
+}
+
+.neuro-map-steps {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.map-step {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: calc(var(--radius) + 8px);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px 14px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1), border-color 0.35s ease, background 0.35s ease;
+}
+
+.map-step-k {
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.map-step-title {
+  font-weight: 900;
+}
+
+.map-step-desc {
+  margin-top: 4px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.map-step.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(167, 139, 250, 0.45);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(59, 130, 246, 0.04));
+}
+
+.map-step.is-active .map-step-k {
+  color: rgba(167, 139, 250, 0.95);
+}
+
+@media (max-width: 900px) {
+  .neuro-map {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .neuro-map-visual {
+    position: relative;
+    top: auto;
+  }
 }
 
 .section-muted {
@@ -970,6 +1133,90 @@ h3 {
   margin: 20px 0;
 }
 
+ .pricing-drama {
+  position: relative;
+  overflow: hidden;
+ }
+
+ .pricing-drama::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(closest-side at 50% 40%, rgba(167, 139, 250, 0.14), transparent 62%);
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.9, 0.2, 1);
+  pointer-events: none;
+ }
+
+ .pricing-drama .pricing-header {
+  opacity: 0.8;
+  transform: translateY(0);
+  filter: saturate(0.95);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1), filter 0.7s ease;
+ }
+
+ .pricing-drama .pricing-divider {
+  opacity: 0.85;
+  transform: translateY(0);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
+ }
+
+ .pricing-drama .pricing-featured {
+  transform: translateY(8px);
+  opacity: 0;
+  filter: saturate(0.92) brightness(0.95);
+  transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.9s ease, filter 0.9s ease;
+ }
+
+ .pricing-cta-band {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.9, 0.2, 1);
+ }
+
+ .pricing-drama.is-visible .pricing-header {
+  opacity: 0.55;
+  transform: translateY(6px);
+  filter: saturate(0.9);
+ }
+
+ .pricing-drama.is-visible .pricing-divider {
+  opacity: 0.65;
+  transform: translateY(4px);
+ }
+
+ .pricing-drama.is-visible::after {
+  opacity: 1;
+  transform: scale(1);
+ }
+
+ .pricing-drama.is-visible .pricing-featured {
+  opacity: 1;
+  transform: translateY(0);
+  filter: saturate(1.02) brightness(1.0);
+  transition-delay: 0.18s;
+ }
+
+ .pricing-drama.is-visible + .pricing-cta-band {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.42s;
+ }
+
+ @media (prefers-reduced-motion: reduce) {
+  .pricing-cta-band {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pricing-drama .pricing-featured {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+ }
+
 .pricing-header {
   margin-bottom: 16px;
 }
@@ -1028,14 +1275,19 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-  animation: shimmer 3s infinite;
+  background: linear-gradient(45deg, transparent 32%, rgba(255, 255, 255, 0.06) 50%, transparent 68%);
+  opacity: 0;
+  animation: shimmer 4.8s ease-in-out infinite;
 }
 
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
+
+ .pricing-drama.is-visible .pricing-featured::before {
+  opacity: 1;
+ }
 
 .pricing-badge {
   display: inline-block;
@@ -1058,6 +1310,13 @@ h3 {
   color: rgba(255, 255, 255, 0.9);
   font-size: 13px;
 }
+
+ .pricing-reason {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.86);
+  letter-spacing: 0.02em;
+ }
 
 /* Scarcity Notice */
 .scarcity-notice {
