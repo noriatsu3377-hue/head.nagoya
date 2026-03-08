@@ -506,6 +506,26 @@ img { max-width: 100%; display: block; }
   margin-top: 10px;
 }
 
+.intro.is-active .intro-line-3 {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition-delay: 1.45s;
+  margin-top: 12px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.intro.is-active .intro-line-4 {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition-delay: 1.75s;
+  margin-top: 6px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .intro-cta {
   margin-top: 18px;
   opacity: 0;
@@ -516,7 +536,7 @@ img { max-width: 100%; display: block; }
 .intro.is-active .intro-cta {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 1.35s;
+  transition-delay: 2.15s;
 }
 
 .section {

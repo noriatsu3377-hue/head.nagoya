@@ -24,6 +24,8 @@
       <div class="intro-inner">
         <div class="intro-line intro-line-1">頭・頸椎・神経から整える</div>
         <div class="intro-line intro-line-2">ヘッドコンディショニングー極ー</div>
+        <div class="intro-line intro-line-3">頭・頸椎・神経・頭蓋から“結果を出す”ヘッド施術。</div>
+        <div class="intro-line intro-line-4">「体感変化」と「再現性」を最優先した、完全実装型セミナー。</div>
         <a class="btn btn-primary btn-large intro-cta" href="https://forms.gle/64JgMhyDe6drS7ux5" target="_blank" rel="noreferrer">今すぐ申し込む</a>
       </div>
     </div>
@@ -89,7 +91,7 @@
 
           <div class="hero-media" aria-hidden="true">
             <div class="hero-media-glow" aria-hidden="true"></div>
-            <img id="heroImage" src="./E6C7CAF9-E7B2-4773-8FA0-8954EE7CAF17.jpg" alt="頭部・頸部の解剖図" />
+            <img id="heroImage" src="./D8C189DD-9F3C-4CD5-99D7-7C8F6E85773C.png" alt="頭部・頸部の解剖図" />
           </div>
         </div>
       </section>
@@ -746,6 +748,8 @@
 
         const initHeroImage = () => {
           if (!heroImg) return;
+          const src = (heroImg.currentSrc || heroImg.getAttribute('src') || '').toLowerCase();
+          if (src.endsWith('.png')) return;
           const onReady = () => makeTransparentAndCrop(heroImg);
           if (heroImg.complete) onReady();
           else heroImg.addEventListener('load', onReady, { once: true });
@@ -900,7 +904,7 @@
 
           const key = 'intro_seen_v1';
           const seen = sessionStorage.getItem(key) === '1';
-          const duration = seen ? 800 : 2400;
+          const duration = seen ? 900 : 3000;
           sessionStorage.setItem(key, '1');
 
           if (prefersReduced) {
